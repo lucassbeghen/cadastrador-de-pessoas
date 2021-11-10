@@ -1,27 +1,29 @@
-// Importar o express
+// importar o express
 const express = require('express');
 
-// Criar uma aplicação em express
+//criar uma aplicação em express
 const app = express();
 
-// Fazer com que a aplicação express atenda a uma requisição
-app.get('/', (req, res)=>{
-    res.send("olá!");
-    console.log("Deu certo!... até certo ponto...");
+//fazer com que a aplicação express atenda a uma requisição
+app.get("/", (req,res)=>{
+    res.send("Olá!");
+    console.log("Deu certo!...até certo ponto...");
+} )
+
+//criar uma rota get '/pessoas' que deve retornar as pessoas para o cliente
+app.get('/pessoas', (req,res) => {
+    let pessoas = require('./database/pessoas.json');
+    res.send(pessoas)
 })
 
-// Criar uma rota get '/pessoas' que deve retornar as pessoas para o cliente
-app.get('/pessoas', (req, res)=>{
-    let pessoas = require('./database/pessoas.json');
-    res.send(pessoas);
-});
-
-// Criar uma rota get '/pessoas/1' que deve retornar a pessoa da posição 1 para o cliente
-app.get('/pessoas/:id', (req, res)=>{
+//criar uma rota get '/pessoas/1' que deve retornar a pessoa da posição 1 para o cliente
+app.get('/pessoas/:id', (req,res) => {
     let id = req.params.id;
-    let pessoas = require('./database/pessoas.json');
-    res.send(pessoas[id]);
+    let pessoaUm = require ('./database/pessoas.json');
+    res.send(pessoaUm[id].nome)
 })
 
-// Levantar a aplicação (fazer com que a applicação fique de prontidão)
-app.listen(3000, ()=>{console.log("Servidor roando na porta 3000...")});
+//levantar a aplicação (fazer com que a aplicação fique de prontidão)
+app.listen(3000, ()=>{
+    console.log("Servidor rodando na porta 3000")
+});
